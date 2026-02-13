@@ -9,53 +9,15 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #fff0f3, #ffd6e0);
-  color: #b3003c;
+  background: linear-gradient(135deg, #ffe6ec, #ffd1dc);
+  color: #a10035;
   text-align: center;
-  overflow: hidden;
-  transition: 1s;
+  overflow-x: hidden;
 }
 
-.container {
-  margin-top: 120px;
-  padding: 20px;
-}
-
-button {
-  padding: 15px 30px;
-  font-size: 18px;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  margin: 20px;
-  transition: 0.3s;
-}
-
-.primaryBtn {
-  background-color: #ff4d6d;
-  color: white;
-}
-
-.secondaryBtn {
-  background-color: #e0e0e0;
-  color: #555;
-  position: absolute;
-}
-
-.hidden {
-  display: none;
-}
-
-input {
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  font-size: 16px;
-}
-
-/* Floating hearts */
+/* Floating Hearts */
 @keyframes floatUp {
-  0% { transform: translateY(0); opacity: 0.6; }
+  0% { transform: translateY(0); opacity: 0.5; }
   100% { transform: translateY(-100vh); opacity: 0; }
 }
 
@@ -68,67 +30,118 @@ input {
   pointer-events: none;
 }
 
+/* Card */
+.card {
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 500px;
+  margin: 100px auto;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+button {
+  padding: 14px 28px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 15px;
+  transition: 0.3s;
+}
+
+.primaryBtn {
+  background-color: #ff3366;
+  color: white;
+}
+
+.primaryBtn:hover {
+  background-color: #e6004c;
+  transform: scale(1.05);
+}
+
+.secondaryBtn {
+  background-color: #f2f2f2;
+  color: #444;
+  position: absolute;
+}
+
+.hidden {
+  display: none;
+}
+
+input {
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  width: 80%;
+  margin-top: 10px;
+}
+
+.message {
+  margin-top: 25px;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="https://www2.cs.uic.edu/~i101/SoundFiles/Canon.mp3" type="audio/mp3">
+</audio>
+
 <!-- PASSWORD SCREEN -->
-<div id="loginScreen" class="container">
-  <h1>🔐 Private For Tanisha ❤️</h1>
+<div id="loginScreen" class="card">
+  <h2>🔐 Access Restricted</h2>
+  <p>Only she knows the code to my heart.</p>
   <p>Password Hint: most special date (DDMMYYYY)</p>
   <input type="password" id="passwordInput" placeholder="Enter Password">
-  <br><br>
-  <button class="primaryBtn" onclick="checkPassword()">Enter</button>
+  <br>
+  <button class="primaryBtn" onclick="checkPassword()">Unlock ❤️</button>
 </div>
 
 <!-- WELCOME SCREEN -->
-<div id="welcomeScreen" class="container hidden">
-  <h1>So Tanisha, you think I take less efforts? 😌</h1>
-  <h2>Welcome to your website babygirl!! ❤️</h2>
+<div id="welcomeScreen" class="card hidden">
+  <h2>So Tanisha, you think I take less efforts? 😌</h2>
+  <h3>Welcome to your website babygirl!! ❤️</h3>
   <button class="primaryBtn" onclick="enterWorld()">
     Enter the world of TH ❤️
   </button>
 </div>
 
-<!-- MAIN VALENTINE SCREEN -->
-<div id="mainContent" class="container hidden">
-  <h1>Happy Valentine's Day tan!!! ❤️</h1>
+<!-- MAIN SCREEN -->
+<div id="mainContent" class="hidden">
+  <div class="card">
+    <h1>Happy Valentine's Day tan!!! ❤️</h1>
 
-  <p style="max-width:700px; margin:auto; line-height:1.8;">
-    From college days ➝  
-    KPMG articleship ➝  
-    Too many arguments ➝  
-    Too many efforts ➝  
-    And still choosing each other everyday ❤️<br><br>
+    <div id="typedMessage" class="message"></div>
 
-    Different personalities, same ambition.  
-    CA Finals with Rank 🏆  
-    MDP memories (stairs 😉 garden 🌿)  
-    CAT cleared together 🔥  
-    Growth. Madness. Effort. Loyalty.  
+    <h2 style="margin-top:40px;">Do You Love Me? 😌</h2>
+    <button id="yesBtn" class="primaryBtn" onclick="sayYes()">Yes ❤️</button>
+    <button id="noBtn" class="secondaryBtn">No 😏</button>
 
-    <br><br>
-    Through stress, exams, breakdowns, career fights —  
-    it has always been you.  
-
-    <br><br>
-    Tum Se Hi. Always. ❤️
-  </p>
-
-  <h2 style="margin-top:50px;">Do You Love Me? 😌</h2>
-  <button id="yesBtn" class="primaryBtn" onclick="sayYes()">Yes ❤️</button>
-  <button id="noBtn" class="secondaryBtn">No 😏</button>
-
-  <div id="loveMessage" class="hidden">
-    <h2>Obviously you dooo 😌❤️</h2>
-    <p>I win. Always. 😌</p>
+    <div id="loveMessage" class="hidden">
+      <h2>Obviously you dooo 😌❤️</h2>
+    </div>
   </div>
 </div>
 
 <script>
 
-/* PASSWORD CHECK */
+/* PASSWORD */
 function checkPassword() {
   var password = document.getElementById("passwordInput").value;
   if(password === "10022023") {
@@ -143,21 +156,52 @@ function checkPassword() {
 function enterWorld() {
   document.getElementById("welcomeScreen").classList.add("hidden");
   document.getElementById("mainContent").classList.remove("hidden");
+  document.getElementById("bgMusic").play();
+  typeWriter();
 }
 
-/* YES GROWS WHEN NO IS HOVERED */
+/* TYPEWRITER EFFECT */
+const text = `
+From college ➝  
+KPMG articleship ➝  
+too much effort ➝  
+finally together ❤️
+
+unique personalities, still perfectly connected 💫
+
+CA Finals with Rank together 🏆
+MDP craziest memories!
+stairs and garden we've enjoyed a lotttt
+CAT cleared together 🔥
+
+i miss you so so so much.
+i cannot wait to hug you like there's no tomorrow,
+and then kiss you endlessly every part of you and just feel you.
+
+miss you so much tanisha. i love you.
+`;
+
+let i = 0;
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typedMessage").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 35);
+  }
+}
+
+/* YES GROWS */
 var noBtn = document.getElementById("noBtn");
 var yesBtn = document.getElementById("yesBtn");
-var yesSize = 18;
+var size = 18;
 
 noBtn.addEventListener("mouseover", function() {
-  var x = Math.random() * (window.innerWidth - 100);
-  var y = Math.random() * (window.innerHeight - 50);
+  var x = Math.random() * (window.innerWidth - 120);
+  var y = Math.random() * (window.innerHeight - 80);
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
-
-  yesSize += 4;
-  yesBtn.style.fontSize = yesSize + "px";
+  size += 4;
+  yesBtn.style.fontSize = size + "px";
 });
 
 /* YES CLICK */
@@ -165,10 +209,20 @@ function sayYes() {
   document.getElementById("loveMessage").classList.remove("hidden");
 
   confetti({
-    particleCount: 250,
-    spread: 120,
+    particleCount: 300,
+    spread: 130,
     origin: { y: 0.6 }
   });
+
+  setTimeout(() => {
+    document.body.innerHTML = `
+      <div style="margin-top:200px; text-align:center;">
+        <h1>Forever? ❤️</h1>
+        <h2>Will you stay with me through everything? 💍</h2>
+      </div>
+    `;
+    confetti({ particleCount: 400, spread: 160 });
+  }, 4000);
 }
 
 /* FLOATING HEARTS */
@@ -179,12 +233,8 @@ function createHeart() {
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.fontSize = (16 + Math.random() * 10) + "px";
   document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 6000);
+  setTimeout(() => heart.remove(), 6000);
 }
-
 setInterval(createHeart, 700);
 
 </script>
