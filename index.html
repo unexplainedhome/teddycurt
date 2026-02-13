@@ -9,20 +9,16 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #fff5f8, #ffeaf2);
-  color: #b03060;
+  background: linear-gradient(135deg, #fff0f3, #ffd6e0);
+  color: #b3003c;
   text-align: center;
   overflow: hidden;
-}
-
-/* Floating hearts animation */
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 0.7; }
-  100% { transform: translateY(-100vh); opacity: 0; }
+  transition: 1s;
 }
 
 .container {
   margin-top: 120px;
+  padding: 20px;
 }
 
 button {
@@ -35,13 +31,13 @@ button {
   transition: 0.3s;
 }
 
-#yesBtn {
-  background-color: #ff85a2;
+.primaryBtn {
+  background-color: #ff4d6d;
   color: white;
 }
 
-#noBtn {
-  background-color: #d3d3d3;
+.secondaryBtn {
+  background-color: #e0e0e0;
   color: #555;
   position: absolute;
 }
@@ -57,35 +53,76 @@ input {
   font-size: 16px;
 }
 
+/* Floating hearts */
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 0.6; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  opacity: 0.4;
+  animation: floatUp 6s linear forwards;
+  pointer-events: none;
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- PASSWORD SCREEN -->
 <div id="loginScreen" class="container">
   <h1>🔐 Private For Tanisha ❤️</h1>
-  <p>Password Hint: most special date (in DDMMYYYY)</p>
+  <p>Password Hint: most special date (DDMMYYYY)</p>
   <input type="password" id="passwordInput" placeholder="Enter Password">
   <br><br>
-  <button onclick="checkPassword()">Enter</button>
+  <button class="primaryBtn" onclick="checkPassword()">Enter</button>
 </div>
 
+<!-- WELCOME SCREEN -->
+<div id="welcomeScreen" class="container hidden">
+  <h1>So Tanisha, you think I take less efforts? 😌</h1>
+  <h2>Welcome to your website babygirl!! ❤️</h2>
+  <button class="primaryBtn" onclick="enterWorld()">
+    Enter the world of TH ❤️
+  </button>
+</div>
+
+<!-- MAIN VALENTINE SCREEN -->
 <div id="mainContent" class="container hidden">
-  <h1>Tanisha ❤️</h1>
-  <h2>Do You Love Me? 😌</h2>
-  <button id="yesBtn" onclick="sayYes()">Yes ❤️</button>
-  <button id="noBtn">No 😏</button>
+  <h1>Happy Valentine's Day tan!!! ❤️</h1>
+
+  <p style="max-width:700px; margin:auto; line-height:1.8;">
+    From college days ➝  
+    KPMG articleship ➝  
+    Too many arguments ➝  
+    Too many efforts ➝  
+    And still choosing each other everyday ❤️<br><br>
+
+    Different personalities, same ambition.  
+    CA Finals with Rank 🏆  
+    MDP memories (stairs 😉 garden 🌿)  
+    CAT cleared together 🔥  
+    Growth. Madness. Effort. Loyalty.  
+
+    <br><br>
+    Through stress, exams, breakdowns, career fights —  
+    it has always been you.  
+
+    <br><br>
+    Tum Se Hi. Always. ❤️
+  </p>
+
+  <h2 style="margin-top:50px;">Do You Love Me? 😌</h2>
+  <button id="yesBtn" class="primaryBtn" onclick="sayYes()">Yes ❤️</button>
+  <button id="noBtn" class="secondaryBtn">No 😏</button>
 
   <div id="loveMessage" class="hidden">
     <h2>Obviously you dooo 😌❤️</h2>
-    <p>
-      From college ➝ KPMG articleship ➝ too much effort ➝ finally together ❤️<br><br>
-      Different nature, still perfectly connected 💫<br><br>
-      CA Finals with Rank together 🏆<br>
-      MDP memories (stairs 😉 garden 🌿)<br>
-      CAT cleared together 🔥<br><br>
-      Tum Se Hi. Always. ❤️
-    </p>
+    <p>I win. Always. 😌</p>
   </div>
 </div>
 
@@ -96,13 +133,19 @@ function checkPassword() {
   var password = document.getElementById("passwordInput").value;
   if(password === "10022023") {
     document.getElementById("loginScreen").classList.add("hidden");
-    document.getElementById("mainContent").classList.remove("hidden");
+    document.getElementById("welcomeScreen").classList.remove("hidden");
   } else {
     alert("Wrong password 😜 Try again.");
   }
 }
 
-/* MOVING NO BUTTON + GROWING YES */
+/* ENTER WORLD */
+function enterWorld() {
+  document.getElementById("welcomeScreen").classList.add("hidden");
+  document.getElementById("mainContent").classList.remove("hidden");
+}
+
+/* YES GROWS WHEN NO IS HOVERED */
 var noBtn = document.getElementById("noBtn");
 var yesBtn = document.getElementById("yesBtn");
 var yesSize = 18;
@@ -113,36 +156,36 @@ noBtn.addEventListener("mouseover", function() {
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 
-  yesSize += 3; 
+  yesSize += 4;
   yesBtn.style.fontSize = yesSize + "px";
 });
 
 /* YES CLICK */
 function sayYes() {
   document.getElementById("loveMessage").classList.remove("hidden");
+
   confetti({
-    particleCount: 200,
-    spread: 100,
+    particleCount: 250,
+    spread: 120,
     origin: { y: 0.6 }
   });
 }
 
-/* FLOATING SUBTLE HEARTS */
-setInterval(function() {
-  var heart = document.createElement("div");
+/* FLOATING HEARTS */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
   heart.innerHTML = "💗";
-  heart.style.position = "absolute";
-  heart.style.left = Math.random() * window.innerWidth + "px";
-  heart.style.top = window.innerHeight + "px";
-  heart.style.fontSize = "20px";
-  heart.style.opacity = "0.35";
-  heart.style.animation = "floatUp 6s linear forwards";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (16 + Math.random() * 10) + "px";
   document.body.appendChild(heart);
 
   setTimeout(() => {
     heart.remove();
   }, 6000);
-}, 800);
+}
+
+setInterval(createHeart, 700);
 
 </script>
 
