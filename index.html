@@ -106,7 +106,7 @@ input {
 <!-- PASSWORD SCREEN -->
 <div id="loginScreen" class="card">
   <h2>🔐 Access Restricted</h2>
-  <p>Only she knows the code to my heart.</p>
+  <p>Only you know the code to my heart.</p>
   <p>Password Hint: most special date (DDMMYYYY)</p>
   <input type="password" id="passwordInput" placeholder="Enter Password">
   <br>
@@ -213,16 +213,6 @@ function sayYes() {
     spread: 130,
     origin: { y: 0.6 }
   });
-
-  setTimeout(() => {
-    document.body.innerHTML = `
-      <div style="margin-top:200px; text-align:center;">
-        <h1>Forever? ❤️</h1>
-        <h2>Will you stay with me through everything? 💍</h2>
-      </div>
-    `;
-    confetti({ particleCount: 400, spread: 160 });
-  }, 4000);
 }
 
 /* FLOATING HEARTS */
