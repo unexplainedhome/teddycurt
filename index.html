@@ -4,18 +4,25 @@
 <meta charset="UTF-8">
 <title>For Tanisha ❤️</title>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <style>
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #000000, #8B0000);
-  color: white;
+  background: linear-gradient(135deg, #ffe6f0, #ffd6e8);
+  color: #5a0033;
   text-align: center;
   overflow: hidden;
 }
 
+/* Floating hearts animation */
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 0.8; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+
 .container {
-  margin-top: 100px;
+  margin-top: 120px;
 }
 
 button {
@@ -29,12 +36,12 @@ button {
 }
 
 #yesBtn {
-  background-color: red;
+  background-color: #ff4d88;
   color: white;
 }
 
 #noBtn {
-  background-color: black;
+  background-color: #444;
   color: white;
   position: absolute;
 }
@@ -44,7 +51,7 @@ button {
 }
 
 input {
-  padding: 10px;
+  padding: 12px;
   border-radius: 10px;
   border: none;
   font-size: 16px;
@@ -57,7 +64,7 @@ input {
 
 <div id="loginScreen" class="container">
   <h1>🔐 Private For Tanisha ❤️</h1>
-  <p>Password Hint: most special date (in DDMMYYY)</p>
+  <p>Password Hint: most special date (in DDMMYYYY)</p>
   <input type="password" id="passwordInput" placeholder="Enter Password">
   <br><br>
   <button onclick="checkPassword()">Enter</button>
@@ -84,6 +91,7 @@ input {
 
 <script>
 
+/* PASSWORD CHECK */
 function checkPassword() {
   var password = document.getElementById("passwordInput").value;
   if(password === "10022023") {
@@ -94,15 +102,22 @@ function checkPassword() {
   }
 }
 
+/* MOVING NO BUTTON + GROWING YES */
 var noBtn = document.getElementById("noBtn");
+var yesBtn = document.getElementById("yesBtn");
+var yesSize = 18;
 
 noBtn.addEventListener("mouseover", function() {
   var x = Math.random() * (window.innerWidth - 100);
   var y = Math.random() * (window.innerHeight - 50);
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+
+  yesSize += 3; 
+  yesBtn.style.fontSize = yesSize + "px";
 });
 
+/* YES CLICK */
 function sayYes() {
   document.getElementById("loveMessage").classList.remove("hidden");
   confetti({
@@ -111,6 +126,23 @@ function sayYes() {
     origin: { y: 0.6 }
   });
 }
+
+/* FLOATING SUBTLE HEARTS */
+setInterval(function() {
+  var heart = document.createElement("div");
+  heart.innerHTML = "💗";
+  heart.style.position = "absolute";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.top = window.innerHeight + "px";
+  heart.style.fontSize = "20px";
+  heart.style.opacity = "0.4";
+  heart.style.animation = "floatUp 6s linear forwards";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}, 800);
 
 </script>
 
