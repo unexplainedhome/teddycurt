@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For Tanisha ❤️</title>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #000000, #8B0000);
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+.container {
+  margin-top: 100px;
+}
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin: 20px;
+  transition: 0.3s;
+}
+
+#yesBtn {
+  background-color: red;
+  color: white;
+}
+
+#noBtn {
+  background-color: black;
+  color: white;
+  position: absolute;
+}
+
+.hidden {
+  display: none;
+}
+
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="loginScreen" class="container">
+  <h1>🔐 Private For Tanisha ❤️</h1>
+  <p>Password Hint: most special date (in DDMMYYY)</p>
+  <input type="password" id="passwordInput" placeholder="Enter Password">
+  <br><br>
+  <button onclick="checkPassword()">Enter</button>
+</div>
+
+<div id="mainContent" class="container hidden">
+  <h1>Tanisha ❤️</h1>
+  <h2>Do You Love Me? 😌</h2>
+  <button id="yesBtn" onclick="sayYes()">Yes ❤️</button>
+  <button id="noBtn">No 😏</button>
+
+  <div id="loveMessage" class="hidden">
+    <h2>Obviously you dooo 😌❤️</h2>
+    <p>
+      From college ➝ KPMG articleship ➝ too much effort ➝ finally together ❤️<br><br>
+      Different nature, still perfectly connected 💫<br><br>
+      CA Finals with Rank together 🏆<br>
+      MDP memories (stairs 😉 garden 🌿)<br>
+      CAT cleared together 🔥<br><br>
+      Tum Se Hi. Always. ❤️
+    </p>
+  </div>
+</div>
+
+<script>
+
+function checkPassword() {
+  var password = document.getElementById("passwordInput").value;
+  if(password === "10022023") {
+    document.getElementById("loginScreen").classList.add("hidden");
+    document.getElementById("mainContent").classList.remove("hidden");
+  } else {
+    alert("Wrong password 😜 Try again.");
+  }
+}
+
+var noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", function() {
+  var x = Math.random() * (window.innerWidth - 100);
+  var y = Math.random() * (window.innerHeight - 50);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+function sayYes() {
+  document.getElementById("loveMessage").classList.remove("hidden");
+  confetti({
+    particleCount: 200,
+    spread: 100,
+    origin: { y: 0.6 }
+  });
+}
+
+</script>
+
+</body>
+</html>
